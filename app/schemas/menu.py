@@ -13,6 +13,7 @@ class Item(BaseModel):
     tax: Union[float, None] = None
 
 
+# класс для валидации json
 class Menu(BaseModel):
     title: str
     description: str
