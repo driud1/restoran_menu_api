@@ -1,7 +1,6 @@
-# from app.schemas.menu import Menu
 from app.schemas import Menu
-from app.main import app
 from fastapi import APIRouter
+from app.databace import db
 
 
 router = APIRouter()
@@ -21,6 +20,7 @@ async def add_menus(menu: Menu):
     :param menu:
     :return:
     """
+    db.insert_to_menu(menu.title, menu.description)
     print(menu.title, menu.title, menu)
     return menu
 

@@ -14,6 +14,7 @@ class Item(BaseModel):
 
 
 # класс для валидации json
+# данный класс называется схемой данный
 class Menu(BaseModel):
     title: str
     description: str

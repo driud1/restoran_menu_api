@@ -3,10 +3,10 @@ import uvicorn
 from app.schemas.menu import Item
 from app.routes import menu
 
+app = fastapi.FastAPI(debug=True)  # создаем эксземпляр fastapi приложения  (он хранится, в файле app.main)
 
-app = fastapi.FastAPI(debug=True)
+app.include_router(menu.router)
 
-menu_list = []
 
 
 @app.get("/")  # возвращает информацию с сервера на клиент
@@ -16,8 +16,8 @@ async def root():
 
 @app.post('/')
 async def post_root(item: Item):
-    return item
 
+    return item
 
 
 # @app.get("/items/{item_id}")
@@ -30,10 +30,5 @@ async def post_root(item: Item):
 #     return item
 
 
-app.include_router(menu.router)
-
-
 if __name__ == '__main__':
     uvicorn.run(app=app, host="127.0.0.1", port=5467)
-
-
