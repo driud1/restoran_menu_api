@@ -26,13 +26,15 @@ async def add_menus(menu: Menu):
 
 
 @router.get("/api/v1/menus/{target_menu_id}")
-async def get_menu_item(target_menu_id: int):
+async def get_menu_item(target_menu_id: str):
     """
     функция возвращает title и discription menu по поданному в пути id меню
     :param target_menu_id: id запращиваемого меню
     :return: List[str]
     """
-    return target_menu_id
+    target_menu_id = int(target_menu_id)
+    menu_id, title, description = db.select_from_menu(target_menu_id)
+    return {"id": menu_id, "title": title, "description": description}
 
 
 @router.patch("/api/v1/menus/{target_menu_id}", )
@@ -48,6 +50,16 @@ async def patc_menu_id(target_menu_id: int):
         "title": "Kvas",
         "description": "Cold russian drink"
     }
+
+
+
+
+
+
+
+
+
+
 
 
 
