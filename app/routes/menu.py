@@ -9,7 +9,8 @@ router = APIRouter()
 @router.get("/api/v1/menus")
 async def get_list_of_menus():
     """функция обращается к базе данных, забирает список меню и возвращает его пользователю в виде списка"""
-    return [1, 2, 3]
+    # return [1, 2, 3]  # просто заглушка
+    return db.select_all_menus()   # реальная информация из меню
 
 
 @router.post("/api/v1/menus", status_code=201)
@@ -34,10 +35,10 @@ async def get_menu_item(target_menu_id: str):
     """
     target_menu_id = int(target_menu_id)
     menu_id, title, description = db.select_from_menu(target_menu_id)
-    return {"id": menu_id, "title": title, "description": description}
+    return {"id": str(menu_id), "title": title, "description": description}
 
 
-@router.patch("/api/v1/menus/{target_menu_id}", )
+@router.patch("/api/v1/menus/{target_menu_id}")
 async def patc_menu_id(target_menu_id: int):
     """
     Функция обновляет запись в таблице меню по ID (target_menu_id) и возвращает обновленный элемент меню

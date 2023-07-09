@@ -16,7 +16,6 @@ def insert_to_menu(title: str, description: str):
     :param description:
     :return:
     """
-    print(globals())
     with pg.connect(**DB_PROPERTIES) as connect:
         with connect.cursor() as cursor:
             cursor.execute("""
@@ -46,11 +45,27 @@ def select_from_menu(id_menu: int) -> tuple[str]:
 
 
 
+def select_all_menus() -> list:
+    """
+
+    :return:
+    """
+    with pg.connect(**DB_PROPERTIES) as connect:
+        with connect.cursor() as cursor:
+            cursor.execute("""
+                SELECT * FROM public.menu
+                ORDER BY id_menu ASC
+            """)
+
+            return cursor.fetchall()
+
+
 if __name__ == '__main__':  # __name__ == '__main__'  если  мы запускаем тот файл где это записано(а не импортируем его
     # в другой и запускаем тот)
     # print(globals())
     # insert_to_menu("Fish", "Some fish")
-    print(select_from_menu(10))
+    # print(select_from_menu(10))
+    print(select_all_menus())
 
 
 
