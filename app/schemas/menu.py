@@ -20,3 +20,28 @@ class Menu(BaseModel):
     description: str
 
 
+# { 'code': 200
+# "message': "Successful response"}
+class SuccessResponse(BaseModel):
+    code: int = 200
+    message: str = "Successful response"
+
+
+class Submenus(BaseModel):
+    title: str
+    description: str
+
+
+if __name__ == '__main__':
+
+    successful_response = SuccessResponse()
+    print(successful_response)
+
+
+
+
+
+
+
+
+

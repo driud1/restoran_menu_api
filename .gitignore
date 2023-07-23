@@ -1,3 +1,6 @@
+# в gitignore мы записываем все что не хотим отправить в git репрезиторий
+# (папки "foldername/", файлы "filename.filetype", типы файлов "*.filetype
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

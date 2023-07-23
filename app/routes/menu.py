@@ -1,6 +1,7 @@
-from app.schemas import Menu
+from app.schemas import Menu,SuccessResponse
 from fastapi import APIRouter
 from app.databace import db
+
 
 
 router = APIRouter()
@@ -34,8 +35,18 @@ async def get_menu_item(target_menu_id: str):
     :return: List[str]
     """
     target_menu_id = int(target_menu_id)
-    menu_id, title, description = db.select_from_menu(target_menu_id)
-    return {"id": str(menu_id), "title": title, "description": description}
+    print(target_menu_id)
+    try:
+        menu_id, title, description = db.select_from_menu(target_menu_id)
+        return {"id": str(menu_id), "title": title, "description": description}
+    except TypeError as e:
+        return {"error": TypeError.__doc__}
+
+
+
+
+
+
 
 
 @router.patch("/api/v1/menus/{target_menu_id}")
@@ -51,6 +62,32 @@ async def patc_menu_id(target_menu_id: int):
         "title": "Kvas",
         "description": "Cold russian drink"
     }
+
+
+@router.delete("/api/v1/menus/{target_menu_id}", response_model=SuccessResponse)
+async def delete_menu_id(target_menu_id: int):
+    """
+    Функция удаляет меню по ID(target_menu_id)
+    :param target_menu_id:
+    :return:
+    """
+    if db.delete_menu(target_menu_id):
+        return SuccessResponse(message="deleted successfully")
+    else:
+        return SuccessResponse(message="Nothing deleted")
+
+
+# @router.delete("/api/v1/menus_other/{target_menu_id}", status_code=204)
+# async def delete_menu_id(target_menu_id: int):
+#     """
+#     Функция удаляет меню по ID(target_menu_id)
+#     :param target_menu_id:
+#     :return:
+#     """
+#     if target_menu_id:
+#         pass
+#
+
 
 
 

@@ -32,9 +32,10 @@ def select_from_menu(id_menu: int) -> tuple[str]:
     :param id_menu:
     :return: tuple(id, title, description)
     """
+
     with pg.connect(**DB_PROPERTIES) as connect:
         with connect.cursor() as cursor:
-            var = (id_menu,)
+            var = (id_menu, )
             cursor.execute("""
             SELECT id_menu, title, description
 	        FROM public.menu WHERE id_menu = %s; 
@@ -60,13 +61,54 @@ def select_all_menus() -> list:
             return cursor.fetchall()
 
 
+def delete_menu(id_menu: int):
+    """
+    функция принимает id_menu и удаляет его
+    :return:
+    """
+    with pg.connect(**DB_PROPERTIES) as connect:
+        with connect.cursor() as cursor:
+            cursor.execute("""
+                DELETE FROM public.menu
+                WHERE id_menu = %s
+                RETURNING *;
+
+        """, (id_menu, ))
+            return cursor.fetchall()
+
+
+def insert_to_submenus(title: str, description: str, table: str):
+    """
+    функция создает новую запись в таблице подменю
+    :param table:
+    :param title:
+    :param description:
+    :return:
+    """
+    with pg.connect(**DB_PROPERTIES) as connect:
+        with connect.cursor() as cursor:
+            cursor.execute("""
+                INSERT INTO public.submenu(
+                title, description)
+                VALUES (%s, %s, %s,);
+            """, (title, description, table))
+            connect.commit()
+
+
+
+# когда мы импортируем файл в другой файл, мы по сути вставляем код из одного файла в другой
+# Но переменная __name__ == '__main__' только для того файла который мы запустили. Для остальных (импортированных)
+# файлов переменная __name__ равна их названию
 if __name__ == '__main__':  # __name__ == '__main__'  если  мы запускаем тот файл где это записано(а не импортируем его
     # в другой и запускаем тот)
     # print(globals())
     # insert_to_menu("Fish", "Some fish")
     # print(select_from_menu(10))
-    print(select_all_menus())
-
+    # print(select_all_menus())
+    # spam = select_from_menu(1)
+    # print(spam)
+    print(delete_menu(1))
+    print(delete_menu(2))
 
 
 

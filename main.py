@@ -8,7 +8,6 @@ app = fastapi.FastAPI(debug=True)  # создаем эксземпляр fastapi
 app.include_router(menu.router)
 
 
-
 @app.get("/")  # возвращает информацию с сервера на клиент
 async def root():
     return {"message": "Hello World"}
