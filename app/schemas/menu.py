@@ -27,15 +27,14 @@ class SuccessResponse(BaseModel):
     message: str = "Successful response"
 
 
-class Submenus(BaseModel):
-    title: str
-    description: str
 
 
 if __name__ == '__main__':
 
     successful_response = SuccessResponse()
     print(successful_response)
+
+
 
 
 

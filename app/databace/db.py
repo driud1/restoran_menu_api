@@ -45,7 +45,6 @@ def select_from_menu(id_menu: int) -> tuple[str]:
             return result
 
 
-
 def select_all_menus() -> list:
     """
 
@@ -77,23 +76,22 @@ def delete_menu(id_menu: int):
             return cursor.fetchall()
 
 
-def insert_to_submenus(title: str, description: str, table: str):
+def insert_to_submenu(title: str, description: str, fk_menu_id: int):
     """
     функция создает новую запись в таблице подменю
-    :param table:
+    :param fk_menu_id:
     :param title:
     :param description:
     :return:
     """
     with pg.connect(**DB_PROPERTIES) as connect:
         with connect.cursor() as cursor:
-            cursor.execute("""
+            cursor.execute(f"""
                 INSERT INTO public.submenu(
-                title, description)
-                VALUES (%s, %s, %s,);
-            """, (title, description, table))
+                title, description, fk_menu_id)
+                VALUES (%s, %s, %s);
+            """, (title, description, fk_menu_id))
             connect.commit()
-
 
 
 # когда мы импортируем файл в другой файл, мы по сути вставляем код из одного файла в другой
@@ -107,8 +105,9 @@ if __name__ == '__main__':  # __name__ == '__main__'  если  мы запус�
     # print(select_all_menus())
     # spam = select_from_menu(1)
     # print(spam)
-    print(delete_menu(1))
-    print(delete_menu(2))
+    # print(delete_menu(1))
+    # print(delete_menu(2))
+    insert_to_submenu("Kvas", "Beverage qwert",)
 
 
 

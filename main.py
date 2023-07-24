@@ -1,11 +1,12 @@
 import fastapi
 import uvicorn
 from app.schemas.menu import Item
-from app.routes import menu
+from app.routes import menu, submenu
 
 app = fastapi.FastAPI(debug=True)  # создаем эксземпляр fastapi приложения  (он хранится, в файле app.main)
 
 app.include_router(menu.router)
+app.include_router(submenu.router)
 
 
 @app.get("/")  # возвращает информацию с сервера на клиент
