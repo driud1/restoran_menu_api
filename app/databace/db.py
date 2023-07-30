@@ -62,7 +62,7 @@ def select_all_menus() -> list:
 
 def delete_menu(id_menu: int):
     """
-    функция принимает id_menu и удаляет его
+    функция принимает id_menu и удаляет его, , и возвращает список удаленных строк
     :return:
     """
     with pg.connect(**DB_PROPERTIES) as connect:
@@ -92,6 +92,20 @@ def insert_to_submenu(title: str, description: str, fk_menu_id: int):
                 VALUES (%s, %s, %s);
             """, (title, description, fk_menu_id))
             connect.commit()
+
+
+def select_all_submenus() -> list[tuple]:
+    """
+
+    :return:
+    """
+    with pg.connect(**DB_PROPERTIES) as connect:
+        with connect.cursor() as cursor:
+            cursor.execute("""
+                SELECT * FROM public.submenu
+            """)
+
+            return cursor.fetchall()
 
 
 # когда мы импортируем файл в другой файл, мы по сути вставляем код из одного файла в другой

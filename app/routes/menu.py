@@ -41,12 +41,6 @@ async def get_menu_item(target_menu_id: str):
         return {"error": TypeError.__doc__}
 
 
-
-
-
-
-
-
 @router.patch("/api/v1/menus/{target_menu_id}")
 async def patc_menu_id(target_menu_id: int):
     """
@@ -73,6 +67,10 @@ async def delete_menu_id(target_menu_id: int):
         return SuccessResponse(message="deleted successfully")
     else:
         return SuccessResponse(message="Nothing deleted")
+
+
+
+
 
 
 # @router.delete("/api/v1/menus_other/{target_menu_id}", status_code=204)
