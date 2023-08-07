@@ -1,6 +1,5 @@
 from fastapi import APIRouter
 from app.schemas import SuccessResponse, Menu
-from app.databace import db
 
 router = APIRouter()
 
