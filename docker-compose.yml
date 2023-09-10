@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  main_app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: "postgresql://admin:admin@db/rest_fastapi"   # добавить своего сервера "postgresql://user:password@postgresserver/db"
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    image: postgres:11.5-alpine
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data:cached
+
